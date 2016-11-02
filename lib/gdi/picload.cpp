@@ -477,8 +477,9 @@ static void gif_load(Cfilepara* filepara, bool forceRGB = false)
 	ColorMapObject *cmap;
 	int cmaps;
 	int extcode;
+	int err;
 
-	gft = DGifOpenFileName(filepara->file);
+	gft = DGifOpenFileName(filepara->file, &err);
 	if (gft == NULL)
 		return;
 	do
@@ -568,11 +569,11 @@ static void gif_load(Cfilepara* filepara, bool forceRGB = false)
 	}
 	while (rt != TERMINATE_RECORD_TYPE);
 
-	DGifCloseFile(gft);
+	DGifCloseFile(gft, &err);
 	return;
 ERROR_R:
 	eDebug("[ePicLoad] <Error gif>");
-	DGifCloseFile(gft);
+	DGifCloseFile(gft, &err);
 }
 
 //---------------------------------------------------------------------------------------------
