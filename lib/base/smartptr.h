@@ -52,9 +52,9 @@ public:
 	/* Horribly misnamed now, but why waste >9 bytes on each object just
 	 * to satisfy one ServiceEventTracker which doesn't even care about
 	 * the actual type it returns. */
-	unsigned int getPtrString() const
+	size_t getPtrString() const
 	{
-		return (unsigned int)ptr;
+		return (size_t)ptr;
 	}
 #ifndef SWIG
 	T* grabRef() { if (!ptr) return 0; ptr->AddRef(); return ptr; }
