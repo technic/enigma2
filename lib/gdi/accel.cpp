@@ -15,7 +15,7 @@
 // #define ACCEL_DEBUG
 
 gAccel *gAccel::instance;
-#define BCM_ACCEL
+// #define BCM_ACCEL
 
 #ifdef BCM_ACCEL
 extern int bcm_accel_init(void);
