@@ -34,6 +34,7 @@ enigma2_LDADD_WHOLE = \
 
 enigma2_LDADD = \
 	@BASE_LIBS@ \
+	@GSTREAMER_LIBS@ \
 	@LIBGIF_LIBS@ \
 	@LIBJPEG_LIBS@ \
 	@LIBSDL_LIBS@ \
