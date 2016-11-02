@@ -5,16 +5,22 @@
 #include <lib/driver/input_fake.h>
 #include <lib/driver/rcsdl.h>
 
-#include <SDL.h>
+GstBuffer* gSDLDC::gst_buf;
 
 gSDLDC::gSDLDC() : m_pump(eApp, 1)
+  ,m_window(NULL)
+  ,m_video_tex(NULL)
+  ,m_osd_tex(NULL)
+  ,m_frame(0,0)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		eWarning("[gSDLDC] Could not initialize SDL: %s", SDL_GetError());
 		return;
 	}
 
-	setResolution(720, 576);
+//	setResolution(720, 576);
+
+	gst_buf = NULL;
 
 	CONNECT(m_pump.recv_msg, gSDLDC::pumpEvent);
 
@@ -77,7 +83,7 @@ void gSDLDC::exec(const gOpcode *o)
 	switch (o->opcode) {
 	case gOpcode::flush:
 		pushEvent(EV_FLIP);
-		eDebug("[gSDLDC] FLUSH");
+//		eDebug("[gSDLDC] FLUSH");
 		break;
 	default:
 		gDC::exec(o);
@@ -96,25 +102,115 @@ void gSDLDC::setResolution(int xres, int yres, int bpp)
 
 void gSDLDC::evSetVideoMode(unsigned long xres, unsigned long yres)
 {
-	m_screen = SDL_SetVideoMode(xres, yres, 32, SDL_HWSURFACE);
-	if (!m_screen) {
-		eFatal("[gSDLDC] Could not create SDL surface: %s", SDL_GetError());
+	m_window = SDL_CreateWindow("enigma2-SDL2", 0, 0, xres, yres, 0);
+	if (!m_window) {
+		eFatal("[gSDLDC] Could not create SDL window: %s", SDL_GetError());
 		return;
 	}
+	m_render = SDL_CreateRenderer(m_window, -1, /*SDL_RENDERER_SOFTWARE*/ SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	if (!m_render) {
+		eFatal("[gSDLDC] Could not create SDL renderer: %s", SDL_GetError());
+		return;
+	}
+	m_osd = SDL_CreateRGBSurface(SDL_SWSURFACE, xres, yres, 32, 0, 0, 0, 0);
+	SDL_SetColorKey(m_osd, SDL_TRUE, SDL_MapRGB(m_osd->format, 0, 0, 0));
+	m_osd_tex = SDL_CreateTexture(m_render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, xres, yres);
 
-	m_surface.x = m_screen->w;
-	m_surface.y = m_screen->h;
-	m_surface.bpp = m_screen->format->BitsPerPixel;
-	m_surface.bypp = m_screen->format->BytesPerPixel;
-	m_surface.stride = m_screen->pitch;
-	m_surface.data = m_screen->pixels;
+	m_surface.x = m_osd->w;
+	m_surface.y = m_osd->h;
+	m_surface.bpp = m_osd->format->BitsPerPixel;
+	m_surface.bypp = m_osd->format->BytesPerPixel;
+	m_surface.stride = m_osd->pitch;
+	m_surface.data = m_osd->pixels;
 
-	SDL_EnableUNICODE(1);
+//	SDL_EnableUNICODE(1);
+
 }
+
+#define I420_Y_ROWSTRIDE(width) (GST_ROUND_UP_4(width))
+#define I420_U_ROWSTRIDE(width) (GST_ROUND_UP_8(width)/2)
+#define I420_V_ROWSTRIDE(width) ((GST_ROUND_UP_8(I420_Y_ROWSTRIDE(width)))/2)
+
+#define I420_Y_OFFSET(w,h) (0)
+#define I420_U_OFFSET(w,h) (I420_Y_OFFSET(w,h)+(I420_Y_ROWSTRIDE(w)*GST_ROUND_UP_2(h)))
+#define I420_V_OFFSET(w,h) (I420_U_OFFSET(w,h)+(I420_U_ROWSTRIDE(w)*GST_ROUND_UP_2(h)/2))
+
+#define I420_SIZE(w,h)     (I420_V_OFFSET(w,h)+(I420_V_ROWSTRIDE(w)*GST_ROUND_UP_2(h)/2))
 
 void gSDLDC::evFlip()
 {
-	SDL_Flip(m_screen);
+	if (!m_window)
+		return;
+
+	// Render and Texture operations only allowed in SDL2 thread.
+	// Never manipulate textures from gstreamer thread!
+
+	SDL_SetRenderDrawColor(m_render, 0, 0, 0, 0);
+	SDL_RenderClear(m_render);
+
+	// Update Video texture;
+	if (gst_buf) {
+
+		GstCaps* caps = gst_buffer_get_caps(gst_buf);
+		if (!caps) {
+			eFatal("could not get snapshot format");
+		}
+		gint width, height;
+		GstStructure* s = gst_caps_get_structure(caps, 0);
+		int res = gst_structure_get_int(s, "width", &width)
+				| gst_structure_get_int(s, "height", &height);
+		if (!res) {
+			eFatal("could not get snapshot dimension\n");
+		}
+	//	eDebug("CAPS: %s", gst_caps_to_string(caps));
+
+		if (m_frame.w != width || m_frame.h != height) {
+			eDebug("Create new video texture");
+			if(m_video_tex)
+				SDL_DestroyTexture(m_video_tex);
+			m_video_tex = SDL_CreateTexture(m_render, SDL_PIXELFORMAT_YV12, SDL_TEXTUREACCESS_STATIC, width, height);
+			m_frame.w = width;
+			m_frame.h = height;
+		}
+		SDL_Rect r;
+		r.x = 0;
+		r.y = 0;
+		r.w = width;
+		r.h = height;
+
+		// TODO: get format from caps
+		// I420
+		guint8 *y, *u, *v;
+		int ypitch, upitch, vpitch;
+		y = GST_BUFFER_DATA(gst_buf);
+		v = y + I420_U_OFFSET(width, height);
+		u = y + I420_V_OFFSET(width, height);
+		ypitch = I420_Y_ROWSTRIDE(width);
+		vpitch = I420_V_ROWSTRIDE(width);
+		upitch = I420_U_ROWSTRIDE(width);
+		SDL_UpdateYUVTexture(m_video_tex, &r, y, ypitch, u, upitch, v, vpitch);
+
+		gst_buffer_unref(gst_buf);
+		gst_buf = NULL;
+	}
+
+	// Render Video
+	if (m_video_tex) {
+		SDL_RenderCopy(m_render, m_video_tex, NULL, NULL);
+	}
+
+	// Render OSD
+	SDL_UpdateTexture(m_osd_tex, NULL, m_osd->pixels, m_osd->pitch);
+	SDL_SetTextureBlendMode(m_osd_tex, SDL_BLENDMODE_BLEND);
+	SDL_RenderCopy(m_render, m_osd_tex, NULL, NULL);
+
+	SDL_RenderPresent(m_render);
+}
+
+void gSDLDC::cleanup()
+{
+	// TODO
+	SDL_DestroyTexture(m_osd_tex);
 }
 
 void gSDLDC::thread()
@@ -141,6 +237,7 @@ void gSDLDC::thread()
 					break;
 				case EV_QUIT:
 					stop = true;
+					cleanup();
 					break;
 				}
 				break;
