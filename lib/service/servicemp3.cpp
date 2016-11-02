@@ -14,10 +14,12 @@
 #include <lib/service/servicemp3record.h>
 #include <lib/service/service.h>
 #include <lib/gdi/gpixmap.h>
+#include <lib/gdi/sdl.h>
 
 #include <string>
 
 #include <gst/gst.h>
+#include <gst/app/gstappsink.h>
 #include <gst/pbutils/missing-plugins.h>
 #include <sys/stat.h>
 
@@ -573,6 +575,7 @@ eServiceMP3::eServiceMP3(eServiceReference ref):
 #endif
 	if ( m_gst_playbin )
 	{
+		setupAppsink();
 		/*
 		 * avoid video conversion, let the dvbmediasink handle that using native video flag
 		 * volume control is done by hardware, do not use soft volume flag
@@ -641,6 +644,35 @@ eServiceMP3::eServiceMP3(eServiceReference ref):
 		eDebug("[eServiceMP3] sorry, can't play: %s",m_errorInfo.error_message.c_str());
 	}
 	g_free(uri);
+}
+
+void eServiceMP3::setupAppsink()
+{
+	GstElement *appsink = gst_element_factory_make("appsink", "videosink");
+	g_object_set(m_gst_playbin, "video-sink", appsink, NULL);
+	gst_app_sink_set_max_buffers((GstAppSink*)appsink, 1);
+	g_object_set(G_OBJECT(appsink), "emit-signals", TRUE, NULL);
+	g_signal_connect(G_OBJECT(appsink), "new-buffer", G_CALLBACK(displayFrame), this);
+}
+
+GstFlowReturn eServiceMP3::displayFrame(GstAppSink *appsink, gpointer user_data)
+{
+	// FIXME: this is dirty hack.
+	// TODO: setup a message pump and pass pointers to sdl thread safely!
+
+	// unref in SDL
+	GstBuffer *buf = gst_app_sink_pull_buffer(appsink);
+	if (!buf) {
+		eFatal("[eServiceMP3] appsink got empty buffer");
+		return GST_FLOW_ERROR;
+	}
+	gSDLDC::gst_buf = buf;
+
+	ePtr<gMainDC> dc;
+	gOpcode op;
+	op.opcode = gOpcode::flush;
+	gMainDC::getInstance(dc);
+	dc->exec(&op);
 }
 
 eServiceMP3::~eServiceMP3()

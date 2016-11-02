@@ -7,6 +7,7 @@
 #include <lib/dvb/subtitle.h>
 #include <lib/dvb/teletext.h>
 #include <gst/gst.h>
+#include <gst/app/gstappsink.h>
 /* for subtitles */
 #include <lib/gui/esubtitle.h>
 
@@ -379,6 +380,10 @@ private:
 	std::string m_useragent;
 	std::string m_extra_headers;
 	RESULT trickSeek(gdouble ratio);
+
+	void setupAppsink();
+	static GstFlowReturn displayFrame(GstAppSink *appsink, gpointer user_data);
+
 };
 
 #endif
