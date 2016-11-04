@@ -44,14 +44,17 @@ private:
 	SDL_Texture *m_osd_tex;
 	SDL_Surface *m_osd;
 	FrameInfo m_frame;
+	eSingleLock m_mutex;
+	GstBuffer *m_buf;
 
 public:
 	void setResolution(int xres, int yres, int bpp = 32);
 	gSDLDC();
 	virtual ~gSDLDC();
 	int islocked() const { return 0; }
+	/// Passing ownership of buf
+	void displayVideoFrame(GstBuffer *buf);
 
-	static GstBuffer *gst_buf;
 };
 
 #endif

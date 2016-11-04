@@ -657,22 +657,19 @@ void eServiceMP3::setupAppsink()
 
 GstFlowReturn eServiceMP3::displayFrame(GstAppSink *appsink, gpointer user_data)
 {
-	// FIXME: this is dirty hack.
-	// TODO: setup a message pump and pass pointers to sdl thread safely!
-
 	// unref in SDL
 	GstBuffer *buf = gst_app_sink_pull_buffer(appsink);
 	if (!buf) {
 		eFatal("[eServiceMP3] appsink got empty buffer");
 		return GST_FLOW_ERROR;
 	}
-	gSDLDC::gst_buf = buf;
 
 	ePtr<gMainDC> dc;
-	gOpcode op;
-	op.opcode = gOpcode::flush;
 	gMainDC::getInstance(dc);
-	dc->exec(&op);
+	// FIXME: avoid cast by gMainDC interface change
+	gMainDC *dc_ptr = dc;
+	gSDLDC *ptr = static_cast<gSDLDC*>(dc_ptr);
+	ptr->displayVideoFrame(buf);
 }
 
 eServiceMP3::~eServiceMP3()
