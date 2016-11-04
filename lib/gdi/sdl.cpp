@@ -11,6 +11,7 @@ gSDLDC::gSDLDC() : m_pump(eApp, 1)
   ,m_video_tex(NULL)
   ,m_osd_tex(NULL)
   ,m_frame(0,0)
+  ,m_buf(NULL)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		eWarning("[gSDLDC] Could not initialize SDL: %s", SDL_GetError());
@@ -161,6 +162,7 @@ void gSDLDC::evFlip()
 	// Update Video texture;
 	m_mutex.lock();
 	GstBuffer *gst_buf = m_buf;
+	m_buf = NULL;
 	m_mutex.unlock();
 
 	if (gst_buf) {
@@ -203,14 +205,8 @@ void gSDLDC::evFlip()
 		vpitch = I420_V_ROWSTRIDE(width);
 		upitch = I420_U_ROWSTRIDE(width);
 		SDL_UpdateYUVTexture(m_video_tex, &r, y, ypitch, u, upitch, v, vpitch);
+		gst_buffer_unref(gst_buf);
 	}
-
-	m_mutex.lock();
-	if (m_buf) {
-		gst_buffer_unref(m_buf);
-		m_buf = NULL;
-	}
-	m_mutex.unlock();
 
 	// Render Video
 	if (m_video_tex) {
