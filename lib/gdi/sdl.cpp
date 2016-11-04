@@ -5,7 +5,6 @@
 #include <lib/driver/input_fake.h>
 #include <lib/driver/rcsdl.h>
 
-GstBuffer* gSDLDC::gst_buf;
 
 gSDLDC::gSDLDC() : m_pump(eApp, 1)
   ,m_window(NULL)
@@ -19,8 +18,6 @@ gSDLDC::gSDLDC() : m_pump(eApp, 1)
 	}
 
 //	setResolution(720, 576);
-
-	gst_buf = NULL;
 
 	CONNECT(m_pump.recv_msg, gSDLDC::pumpEvent);
 
@@ -96,6 +93,19 @@ void gSDLDC::setResolution(int xres, int yres, int bpp)
 	pushEvent(EV_SET_VIDEO_MODE, (void *)xres, (void *)yres);
 }
 
+void gSDLDC::displayVideoFrame(GstBuffer *buf)
+{
+	m_mutex.lock();
+	if (m_buf != NULL) {
+		eDebug("[gSDLDC] drop frame");
+		gst_buffer_unref(m_buf);
+		m_buf = NULL;
+	}
+	m_buf = buf;
+	m_mutex.unlock();
+	pushEvent(EV_FLIP);
+}
+
 /*
  * SDL thread below...
  */
@@ -115,6 +125,7 @@ void gSDLDC::evSetVideoMode(unsigned long xres, unsigned long yres)
 	m_osd = SDL_CreateRGBSurface(SDL_SWSURFACE, xres, yres, 32, 0, 0, 0, 0);
 	SDL_SetColorKey(m_osd, SDL_TRUE, SDL_MapRGB(m_osd->format, 0, 0, 0));
 	m_osd_tex = SDL_CreateTexture(m_render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, xres, yres);
+	SDL_SetTextureBlendMode(m_osd_tex, SDL_BLENDMODE_BLEND);
 
 	m_surface.x = m_osd->w;
 	m_surface.y = m_osd->h;
@@ -145,10 +156,13 @@ void gSDLDC::evFlip()
 	// Render and Texture operations only allowed in SDL2 thread.
 	// Never manipulate textures from gstreamer thread!
 
-	SDL_SetRenderDrawColor(m_render, 0, 0, 0, 0);
 	SDL_RenderClear(m_render);
 
 	// Update Video texture;
+	m_mutex.lock();
+	GstBuffer *gst_buf = m_buf;
+	m_mutex.unlock();
+
 	if (gst_buf) {
 
 		GstCaps* caps = gst_buffer_get_caps(gst_buf);
@@ -189,10 +203,14 @@ void gSDLDC::evFlip()
 		vpitch = I420_V_ROWSTRIDE(width);
 		upitch = I420_U_ROWSTRIDE(width);
 		SDL_UpdateYUVTexture(m_video_tex, &r, y, ypitch, u, upitch, v, vpitch);
-
-		gst_buffer_unref(gst_buf);
-		gst_buf = NULL;
 	}
+
+	m_mutex.lock();
+	if (m_buf) {
+		gst_buffer_unref(m_buf);
+		m_buf = NULL;
+	}
+	m_mutex.unlock();
 
 	// Render Video
 	if (m_video_tex) {
@@ -201,7 +219,6 @@ void gSDLDC::evFlip()
 
 	// Render OSD
 	SDL_UpdateTexture(m_osd_tex, NULL, m_osd->pixels, m_osd->pitch);
-	SDL_SetTextureBlendMode(m_osd_tex, SDL_BLENDMODE_BLEND);
 	SDL_RenderCopy(m_render, m_osd_tex, NULL, NULL);
 
 	SDL_RenderPresent(m_render);
