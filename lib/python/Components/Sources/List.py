@@ -99,7 +99,7 @@ to generate HTML."""
 
 	def updateList(self, list):
 		"""Changes the list without changing the selection or emitting changed Events"""
-		assert len(list) == len(self.__list)
+		#assert len(list) == len(self.__list)
 		old_index = self.index
 		self.disable_callbacks = True
 		self.list = list
