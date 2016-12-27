@@ -238,7 +238,7 @@ AC_CHECK_HEADERS([shadow.h])
 AC_CHECK_LIB([crypt], [crypt], [BASE_LIBS+=" -lcrypt"], [AC_MSG_ERROR([Could not find crypt])])
 AC_CHECK_LIB([rt], [clock_gettime], [BASE_LIBS+=" -lrt"], [AC_MSG_ERROR([Could not find rt])])
 
-ENIGMA2_CFLAGS="-fno-rtti -fno-exceptions -rdynamic -funwind-tables"
+ENIGMA2_CFLAGS="-fno-rtti -fno-exceptions -fno-permissive -rdynamic -funwind-tables"
 AC_SUBST(ENIGMA2_CFLAGS)
 
 AX_CXX_COMPILE_STDCXX_11([ext],[mandatory])
