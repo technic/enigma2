@@ -44,7 +44,8 @@ from enigma import eTimer, eServiceCenter, eDVBServicePMTHandler, iServiceInform
 from time import time, localtime, strftime
 import os
 from bisect import insort
-from sys import maxint
+#from sys import maxint
+maxint = -10000
 import itertools, datetime
 
 from RecordTimer import RecordTimerEntry, RecordTimer, findSafeRecordPath
