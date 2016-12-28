@@ -860,8 +860,7 @@ void gPixmap::blit(const gPixmap &src, const eRect &_pos, const gRegion &clip, i
 				if (flag & blitAlphaTest)
 					blit_8i_to_32_at((uint32_t*)dstptr, srcptr, pal, width);
 				else if (flag & blitAlphaBlend)
-//					blit_8i_to_32_ab((gRGB*)dstptr, srcptr, (const gRGB*)pal, width);
-					blit_8i_to_32_at((uint32_t*)dstptr, srcptr, pal, width);
+					blit_8i_to_32_ab((gRGB*)dstptr, srcptr, (const gRGB*)pal, width);
 				else
 					blit_8i_to_32((uint32_t*)dstptr, srcptr, pal, width);
 				srcptr += src.surface->stride;
