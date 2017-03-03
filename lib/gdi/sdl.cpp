@@ -185,7 +185,7 @@ void gSDLDC::evFlip()
 			eDebug("Create new video texture");
 			if(m_video_tex)
 				SDL_DestroyTexture(m_video_tex);
-			m_video_tex = SDL_CreateTexture(m_render, SDL_PIXELFORMAT_YV12, SDL_TEXTUREACCESS_STATIC, width, height);
+			m_video_tex = SDL_CreateTexture(m_render, SDL_PIXELFORMAT_IYUV, SDL_TEXTUREACCESS_STATIC, width, height);
 			m_frame.w = width;
 			m_frame.h = height;
 		}
@@ -200,11 +200,11 @@ void gSDLDC::evFlip()
 		guint8 *y, *u, *v;
 		int ypitch, upitch, vpitch;
 		y = GST_BUFFER_DATA(gst_buf);
-		v = y + I420_U_OFFSET(width, height);
-		u = y + I420_V_OFFSET(width, height);
+		u = y + I420_U_OFFSET(width, height);
+		v = y + I420_V_OFFSET(width, height);
 		ypitch = I420_Y_ROWSTRIDE(width);
-		vpitch = I420_V_ROWSTRIDE(width);
 		upitch = I420_U_ROWSTRIDE(width);
+		vpitch = I420_V_ROWSTRIDE(width);
 		SDL_UpdateYUVTexture(m_video_tex, &r, y, ypitch, u, upitch, v, vpitch);
 		gst_buffer_unref(gst_buf);
 	}
