@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-15 12:48+0200\n"
-"PO-Revision-Date: 2016-10-15 12:55+0200\n"
+"POT-Creation-Date: 2017-03-03 22:01+0100\n"
+"PO-Revision-Date: 2017-03-03 22:11+0100\n"
 "Last-Translator: Pr2 <dummy@dummy.com>\n"
 "Language-Team: french\n"
 "Language: fr\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.8.12\n"
 
 msgid ""
 "\n"
@@ -173,6 +173,22 @@ msgid " updates available."
 msgstr " Mises à jour disponibles."
 
 #, python-format
+msgid "%.0f GB"
+msgstr "%.0f GB"
+
+#, python-format
+msgid "%.0f MB"
+msgstr "%.0f MB"
+
+#, python-format
+msgid "%.0f kB"
+msgstr "%.0f kB"
+
+#, python-format
+msgid "%.2f GB"
+msgstr "%.2f GB"
+
+#, python-format
 msgid "%02d:%02d"
 msgstr "%02d:%02d"
 
@@ -211,6 +227,18 @@ msgstr "%a %e/%m"
 msgid "%a %e/%m  %-H:%M"
 msgstr "%a %e/%m  %-H:%M"
 
+#, python-format
+msgid "%d B"
+msgstr "%d B"
+
+#, python-format
+msgid "%d GB"
+msgstr "%d GB"
+
+#, python-format
+msgid "%d MB"
+msgstr "%d MB"
+
 #. TRANSLATORS: Intermediate scanning result, '%d' channel(s) have been found so far
 #, python-format
 msgid "%d channel found"
@@ -243,6 +271,10 @@ msgstr[0] "%d tâche fonctionne en arrière-plan!"
 msgstr[1] "%d taches fonctionnent en arrière-plan!"
 
 #, python-format
+msgid "%d kB"
+msgstr "%d kB"
+
+#, python-format
 msgid "%d min"
 msgstr "%d min"
 
@@ -257,10 +289,18 @@ msgid "%d minutes"
 msgstr "%d minutes"
 
 #, python-format
+msgid "%d ms"
+msgstr "%d ms"
+
+#, python-format
 msgid "%d pixel wide"
 msgid_plural "%d pixels wide"
 msgstr[0] "%d pixel de large"
 msgstr[1] "%d pixels de large"
+
+#, python-format
+msgid "%d sec"
+msgstr "%d sec"
 
 #, python-format
 msgid "%d second"
@@ -290,9 +330,25 @@ msgstr "%d.%02d. %02d:%02d"
 msgid "%d.%B %Y"
 msgstr "%d.%B %Y"
 
+#, python-format
+msgid "%d.%d"
+msgstr "%d.%d"
+
+#, python-format
+msgid "%d.%d.%d"
+msgstr "%d.%d.%d"
+
+#, python-format
+msgid "%d:%02d"
+msgstr "%d:%02d"
+
 #. TRANSLATORS: VFD hour:minute daynum short monthname in strftime() format! See 'man strftime'
 msgid "%k:%M %e/%m"
 msgstr "%k:%M %e/%m"
+
+#, python-format
+msgid "%s %d.%d"
+msgstr "%s %d.%d"
 
 #, python-format
 msgid "%s %s free disk space"
@@ -362,8 +418,14 @@ msgstr "1.1"
 msgid "1.2"
 msgstr "1.2"
 
+msgid "10bit"
+msgstr "10bit"
+
 msgid "12V output"
 msgstr "Sortie 12V"
+
+msgid "12bit"
+msgstr "12bit"
 
 msgid "13 V"
 msgstr "13 V"
@@ -445,6 +507,9 @@ msgstr "7"
 
 msgid "8"
 msgstr "8"
+
+msgid "8bit"
+msgstr "8bit"
 
 msgid "9"
 msgstr "9"
@@ -1191,6 +1256,9 @@ msgstr "Sous-titres DVB centrés"
 msgid "Center time-labels and remove date"
 msgstr "Centrer les time-labels et supprimer la date"
 
+msgid "Change Language"
+msgstr "Changer la langue"
+
 msgid "Change PIN"
 msgstr "Changer PIN"
 
@@ -1328,16 +1396,13 @@ msgstr "Fermer PiP en quittant"
 msgid "Close title selection"
 msgstr "Fermer sélection titre"
 
+msgid "Code R. LP-HP & Guard Int."
+msgstr "Code R. LP-HP & Int. de garde"
+
 msgid "Code rate HP"
 msgstr "Taux de codage HP"
 
 msgid "Code rate LP"
-msgstr "Taux de codage LP"
-
-msgid "Coderate HP"
-msgstr "Taux de codage HP"
-
-msgid "Coderate LP"
 msgstr "Taux de codage LP"
 
 msgid "Collection name"
@@ -1354,6 +1419,9 @@ msgstr "Exécution de la commande..."
 
 msgid "Command order"
 msgstr "Ordre de la commande"
+
+msgid "Commit info"
+msgstr "Info sur les commits"
 
 msgid "Common Interface"
 msgstr "Interface Commune"
@@ -1430,6 +1498,9 @@ msgstr "Configure si et avec quelle largeur les colonnes seront affichées dans 
 
 msgid "Configure if behind the subtitles a background is shown."
 msgstr "Configure si derrière les sous-titres un arrière-plan est affiché."
+
+msgid "Configure if service picons will be shown in display (when supported by the skin)."
+msgstr "Configure si les picons des services seront affichés (lorsque c'est supporté par le thème)."
 
 msgid "Configure if service picons will be shown in the channel selection list."
 msgstr "Configure si les picons des services seront affichés dans la liste des chaînes."
@@ -1713,11 +1784,14 @@ msgstr "Satellites connectés"
 msgid "Connected to"
 msgstr "Connecté à"
 
+msgid "Connected transcoding, limit - no PiP!"
+msgstr "Connecté en transcodage, limite - pas de PiP!"
+
 msgid "Console"
 msgstr "Console"
 
-msgid "Constellation"
-msgstr "Constellation"
+msgid "Constellation & FFT mode"
+msgstr "Constellation & mode FFT"
 
 msgid "Content does not fit on DVD!"
 msgstr "Le contenu ne tient pas sur le DVD!"
@@ -1777,6 +1851,9 @@ msgstr "Créer DVD-ISO"
 
 msgid "Create new folder and exit"
 msgstr "Créer un répertoire et quitter"
+
+msgid "Create seperate radio userbouquet"
+msgstr "Créer des bouquets radio séparés"
 
 #, python-format
 msgid "Creating directory %s failed."
@@ -1879,6 +1956,9 @@ msgstr "Pilotes DVB:"
 
 msgid "DVB subtitle black transparency"
 msgstr "Transparence des sous-titres DVB"
+
+msgid "DVB type"
+msgstr "Type DVB"
 
 msgid "DVB-C"
 msgstr "DVB-C"
@@ -2135,6 +2215,9 @@ msgstr "Désactiver programmation"
 msgid "Disabled"
 msgstr "Désactivé"
 
+msgid "Disclaimer"
+msgstr "Décharge de responsabilité"
+
 msgid "Disk space to reserve for recordings (in GB)"
 msgstr "Espace disque à réserver pour les enregistrements (en Go)"
 
@@ -2249,6 +2332,9 @@ msgstr "Êtes-vous sûr de vouloir quitter l'assistant Overscan?"
 
 msgid "Do you want to reboot your receiver?"
 msgstr "Voulez-vous redémarrer votre récepteur?"
+
+msgid "Do you want to remove all the crahs logfiles"
+msgstr "Voulez-vous effacer tous les fichier logs de crash"
 
 msgid "Do you want to remove the package:\n"
 msgstr "Voulez-vous retirer le paquet:\n"
@@ -2668,26 +2754,33 @@ msgstr "F"
 msgid "F1/F3/F4"
 msgstr "F1/F3/F4"
 
-msgid "FBC Unicable"
-msgstr "FBC Unicable"
+msgid "FBC SCR (Unicable/JESS)"
+msgstr "FBC SCR (Unicable/JESS)"
 
-msgid "FBC automatic loop through"
-msgstr "FBC bouclage automatique"
+msgid "FBC automatic"
+msgstr "FBC automatic"
 
 msgid ""
-"FBC automatic loop through\n"
-"inactive"
+"FBC automatic\n"
+"connected to"
 msgstr ""
-"FBC bouclage automatique\n"
-"désactivé"
+"FBC automatique\n"
+"connecté vers"
 
 #, python-format
 msgid ""
-"FBC automatic loop through\n"
-"linked to %s"
+"FBC automatic\n"
+"connected to %s"
 msgstr ""
-"FBC automatiquement bouclé\n"
-"via %s"
+"FBC automatique\n"
+"connecté vers %s"
+
+msgid ""
+"FBC automatic\n"
+"inactive"
+msgstr ""
+"FBC automatique\n"
+"désactivé"
 
 msgid "FEC"
 msgstr "FEC"
@@ -2752,6 +2845,9 @@ msgstr "Favoris"
 msgid "File appears to be busy.\n"
 msgstr "Le fichier semble être occupé.\n"
 
+msgid "Filename"
+msgstr "Nom de fichier"
+
 msgid "Filesystem check"
 msgstr "Vérification du système de fichiers"
 
@@ -2809,6 +2905,12 @@ msgstr "Français"
 msgid "Frequency"
 msgstr "Fréquence"
 
+msgid "Frequency & Channel"
+msgstr "Fréquence & chaîne"
+
+msgid "Frequency & Polarization"
+msgstr "Fréquence & polarisation"
+
 msgid "Frequency bands"
 msgstr "Bandes fréquence"
 
@@ -2851,6 +2953,13 @@ msgstr "Options supplémentaires"
 
 msgid "G"
 msgstr "G"
+
+msgid ""
+"GUI needs a restart to apply a new language\n"
+"Do you want to restart the GUI now?"
+msgstr ""
+"L'interface doit redémarrer pour appliquer la nouvelle langue\n"
+"Voulez-vous relancer l'interface maintenant?"
 
 msgid ""
 "GUI needs a restart to apply a new skin\n"
@@ -2976,6 +3085,9 @@ msgstr "HD1100/HD1200/HD1265/et7x00/et8500/et7000mini"
 msgid "HD2400"
 msgstr "HD2400"
 
+msgid "HDMI Colordepth"
+msgstr "Profondeur de couleurs HDMI"
+
 msgid "HDMI Colorspace"
 msgstr "Espace colorimétrique HDMI"
 
@@ -3035,9 +3147,6 @@ msgstr "Masquer les erreurs de zapping"
 
 msgid "Hierarchy info"
 msgstr "Info hiérarchie"
-
-msgid "Hierarchy information"
-msgstr "Hiérarchie de l'Information"
 
 msgid "High bitrate support"
 msgstr "Support \"Hight bitrate\""
@@ -3207,6 +3316,9 @@ msgstr "Initialiser le périphérique de stockage..."
 msgid "Input"
 msgstr "Entrée"
 
+msgid "Input "
+msgstr "Entrée "
+
 msgid "Input device setup"
 msgstr "Paramètres du périphérique entrée"
 
@@ -3294,6 +3406,12 @@ msgstr "Donnée du transpondeur non valide"
 
 msgid "Inversion"
 msgstr "Inversion"
+
+msgid "Inversion & Bandwidth"
+msgstr "Inversion & bande passante"
+
+msgid "Inversion, Pilot & Roll-off"
+msgstr "Inversion, Pilot & Roll-off"
 
 msgid "Invert"
 msgstr "Inverser"
@@ -3509,6 +3627,9 @@ msgstr "Verrouiller:"
 msgid "Log results to /tmp"
 msgstr "Loguer les résultats dans /tmp"
 
+msgid "Logfile does not exist anymore"
+msgstr "Le fichier log n’existe plus"
+
 msgid "Long filenames"
 msgstr "Nom de fichiers long"
 
@@ -3518,8 +3639,8 @@ msgstr "Appui long sur touche"
 msgid "Longitude"
 msgstr "Longitude"
 
-msgid "Loop through to"
-msgstr "Rebouclé par"
+msgid "Loop through from"
+msgstr "Rebouclé depuis"
 
 msgid "Luxembourgish"
 msgstr "Luxembourgeois"
@@ -3744,9 +3865,6 @@ msgstr "Multimédia"
 msgid "Multiple service support"
 msgstr "Support service multiple"
 
-msgid "Multiplex"
-msgstr "Multiplex"
-
 msgid "Multisat"
 msgstr "Multisat"
 
@@ -3765,8 +3883,8 @@ msgstr "N/A"
 msgid "NEXT"
 msgstr "SUIVANT"
 
-msgid "NIM"
-msgstr "Tuner"
+msgid "NIM & Type"
+msgstr "NIM & type"
 
 msgid "NO"
 msgstr "NON"
@@ -4186,9 +4304,6 @@ msgstr "PDC"
 msgid "PGS file"
 msgstr "Fichier PGS"
 
-msgid "PIDs"
-msgstr "PIDs"
-
 msgid "PIN code needed"
 msgstr "Code PIN requis"
 
@@ -4511,6 +4626,15 @@ msgstr "Veuillez patienter pendant le test de votre réseau..."
 msgid "Please wait while your network is restarting..."
 msgstr "Veuillez attendre pendant le redémarrage de votre réseau..."
 
+msgid "Please wait, restarting cardserver."
+msgstr "Veuillez patienter, redémarrage du serveur de cartes."
+
+msgid "Please wait, restarting softcam and cardserver."
+msgstr "Veuillez patienter, redémarrage du softcam et cardserver."
+
+msgid "Please wait, restarting softcam."
+msgstr "Veuillez patienter, redémarrage du softcam."
+
 msgid "Please wait..."
 msgstr "Veuillez patienter..."
 
@@ -4556,6 +4680,9 @@ msgstr "Port D"
 msgid "Portuguese"
 msgstr "Portugais"
 
+msgid "Position"
+msgstr "Position"
+
 msgid "Position of completed timers in timerlist"
 msgstr "Position programmations terminées dans liste des prog."
 
@@ -4573,6 +4700,9 @@ msgstr "Paramètres positionneur"
 
 msgid "Positioner setup log"
 msgstr "Configuration du positionneur log"
+
+msgid "Power on display"
+msgstr "Affichage allumé"
 
 msgid "Power threshold in mA"
 msgstr "Seuil de puissance en mA"
@@ -4960,6 +5090,9 @@ msgstr "Retirer un marqueur"
 msgid "Remove a nameserver entry"
 msgstr "Retirer une entrée serveur de nom"
 
+msgid "Remove all logfiles"
+msgstr "Enlever tous les fichiers log"
+
 msgid "Remove bookmark"
 msgstr "Retirer marque page"
 
@@ -4974,6 +5107,9 @@ msgstr "Enlever éléments de la corbeille après (jours)"
 
 msgid "Remove plugins"
 msgstr "Enlever plugins"
+
+msgid "Remove this logfile"
+msgstr "Enlever ce fichier log"
 
 msgid "Remove title"
 msgstr "Retirer titre"
@@ -5061,11 +5197,20 @@ msgstr "Redémarrer le récepteur"
 msgid "Restart GUI now?"
 msgstr "Redémarrer l'interface graphique maintenant?"
 
+msgid "Restart both"
+msgstr "Redémarrer les deux"
+
+msgid "Restart cardserver"
+msgstr "Redémarrer le serveur de cartes"
+
 msgid "Restart enigma"
 msgstr "Redémarrer OpenPLi"
 
 msgid "Restart network"
 msgstr "Relancer le réseau"
+
+msgid "Restart softcam"
+msgstr "Redémarer softcam"
 
 msgid "Restart test"
 msgstr "Relancer le test"
@@ -5153,8 +5298,17 @@ msgstr "Russe"
 msgid "S-Video"
 msgstr "S-Vidéo"
 
-msgid "SID"
-msgstr "SID"
+msgid "SCPC optimized search range"
+msgstr "Plage de recherche SCPC optimisée"
+
+msgid "SCR (Unicable/JESS)"
+msgstr "SCR (Unicable/JESS)"
+
+msgid "SCR JESS"
+msgstr "SCR JESS"
+
+msgid "SCR Unicable"
+msgstr "SCR Unicable"
 
 msgid "SINGLE LAYER DVD"
 msgstr "DVD SIMPLE COUCHE"
@@ -5360,11 +5514,17 @@ msgstr "Sélectionner"
 msgid "Select CAId"
 msgstr "Sélection CAId"
 
+msgid "Select Card Server"
+msgstr "Choisir un serveur de cartes"
+
 msgid "Select Channel"
 msgstr "Choisir une chaîne"
 
 msgid "Select HDD"
 msgstr "Choisir le disque dur"
+
+msgid "Select Softcam"
+msgstr "Choisir un Softcam"
 
 msgid "Select a bouquet"
 msgstr "Choisir un bouquet"
@@ -5505,6 +5665,12 @@ msgstr "Serbe"
 msgid "Service"
 msgstr "Service"
 
+msgid "Service & PIDs"
+msgstr "Services & PIDs"
+
+msgid "Service ID"
+msgstr "ID du service"
+
 msgid "Service has been added to the favourites."
 msgstr "Le service a été ajouté aux favoris."
 
@@ -5514,12 +5680,24 @@ msgstr "Le service a été ajouté au bouquet sélectionné."
 msgid "Service info"
 msgstr "Info service"
 
+msgid "Service info - service & PIDs"
+msgstr "Info du service - service & PIDs"
+
+msgid "Service info - tuner live values"
+msgstr "Info du service - valeurs réelles du tuner"
+
+msgid "Service info - tuner setting values"
+msgstr "Info du service - valeurs des paramètres du tuner"
+
 msgid ""
 "Service invalid!\n"
 "(Timeout reading PMT)"
 msgstr ""
 "Service non valide!\n"
 "(Délai dépassé en lisant PMT)"
+
+msgid "Service name"
+msgstr "Nom du service"
 
 msgid ""
 "Service not found!\n"
@@ -5757,6 +5935,9 @@ msgstr "Afficher les derniers changements"
 msgid "Show latest upgrade log"
 msgstr "Afficher le log de la dernière mise à jour"
 
+msgid "Show menu numbers"
+msgstr "Afficher les numéros des menus"
+
 msgid "Show menu paths"
 msgstr "Afficher les chemins des menus"
 
@@ -5777,6 +5958,9 @@ msgstr "Afficher les paquets à mettre à jour"
 
 msgid "Show picons in channel selection list"
 msgstr "Afficher les picons dans la liste des chaînes"
+
+msgid "Show picons in display"
+msgstr "Afficher les picons dans l'affichage avant"
 
 msgid "Show positioner movement"
 msgstr "Afficher le mouvement du positionneur"
@@ -5810,6 +5994,9 @@ msgstr "Afficher la liste des services ou des films"
 
 msgid "Show single service EPG"
 msgstr "Afficher l'EPG simple du service"
+
+msgid "Show softcam setup in extensions menu"
+msgstr "Afficher la configuration softcam dans le menu des extensions"
 
 msgid "Show status icons in movie list"
 msgstr "Afficher icônes d'état dans liste de films"
@@ -5971,6 +6158,12 @@ msgstr "Société/Politique/Economie"
 msgid "SoftCam / CI"
 msgstr "Lecteur de cartes (Softcam/CI)"
 
+msgid "Softcam Setup"
+msgstr "Configuration Softcam"
+
+msgid "Softcam setup"
+msgstr "Configuration Softcam"
+
 msgid "Softcam type"
 msgstr "Type softcam"
 
@@ -5991,6 +6184,9 @@ msgstr "Mise à jour logiciel"
 
 msgid "Softwaremanager information"
 msgstr "Informations gestionnaire logiciel"
+
+msgid "Some error occured - Please try later"
+msgstr "Certaines erreurs se sont produites - Merci de réessayer plus tard"
 
 msgid "Some plugins are not available:\n"
 msgstr "Des plugins ne sont pas disponibles:\n"
@@ -6187,6 +6383,9 @@ msgstr "Stop"
 msgid "Stop PiP"
 msgstr "Arrêter PiP"
 
+msgid "Stop Streams"
+msgstr "Stopper les streams (diffusions)"
+
 msgid "Stop all current recordings"
 msgstr "Arrêter tous les enregistrements en cours?"
 
@@ -6346,6 +6545,9 @@ msgstr "Inverser fenêtres services"
 msgid "Swedish"
 msgstr "Suédois"
 
+msgid "Switch"
+msgstr "Permuter"
+
 msgid "Switch TV to correct input"
 msgstr "Basculer la TV sur la bonne entrée"
 
@@ -6403,6 +6605,9 @@ msgstr "Types de tuner permutables:"
 msgid "Symbol rate"
 msgstr "Fréq. symbole"
 
+msgid "Symbol rate & FEC"
+msgstr "Fréq. symbole & FEC"
+
 msgid "Symbol rate:"
 msgstr "Fréq. symbole:"
 
@@ -6412,13 +6617,16 @@ msgstr "Erreur de synchro pour revenir à l'origine!"
 msgid "System"
 msgstr "Système"
 
+msgid "System & Modulation"
+msgstr "Système & modulation"
+
 #. TRANSLATORS: Add here whatever should be shown in the "translator" about screen, up to 6 lines (use \n for newline)
 msgid "TRANSLATOR_INFO"
 msgstr ""
 "Traduction Française\n"
 "Enigma2 - OpenPLi\n"
 "Support: www.openpli.org\n"
-"Dernière MAJ: 07 juillet 2016"
+"Dernière MAJ: 3 mars 2017"
 
 msgid "TS file is too large for ISO9660 level 1!"
 msgstr "Fichier TS trop grand pour le niveau 1 ISO9660!"
@@ -6687,14 +6895,29 @@ msgstr ""
 "Pour les utilisateurs finaux ceci n'est pas important.\n"
 "SVP, ne paniquez pas si vous voyez des valeurs que vous pensez étranges."
 
+msgid "This option allows you can config the Colordepth for UHD"
+msgstr "Cette option vous permet de configurer la profondeur des couleurs pour UHD"
+
 msgid "This option allows you can config the Colorspace from Auto to RGB"
 msgstr "Cette option vous permet de configurer l’espace colorimétrique de Auto vers RGB"
+
+msgid "This option allows you to add the softcam setup in the extensions menu."
+msgstr "Cette option vous permet d'ajouter la configuration softcam dans le menu des extensions."
 
 msgid "This option allows you to hide and sort menu entries. When selecting user you can change order and hide menu items via the blue button"
 msgstr "Cette option vous permet de masquer et trier les entrées des menus. Lorsqu’il est activé vous pouvez changer l’ordre et masquer les entrées des menus via le bouton bleu."
 
+msgid "This option allows you to power off the display."
+msgstr "Cette option vous permet d'éteindre l'affichage avant."
+
+msgid "This option allows you to show menu number quick links."
+msgstr "Cette option vous permet d'afficher les numéros des menus pour des raccourcis rapides."
+
 msgid "This option allows you to show menu paths."
 msgstr "Cette option vous permet d'afficher les chemins des menus."
+
+msgid "This option can be useful for long HDMI cables."
+msgstr "Cette option est utile pour les câbles HDMI longs."
 
 msgid "This plugin is installed."
 msgstr "Ce plugin est installé."
@@ -6940,14 +7163,14 @@ msgstr "Mode de transmission"
 msgid "Transponder"
 msgstr "Transpondeur"
 
-msgid "Transponder type"
-msgstr "Type transpondeur"
-
 msgid "Trash can"
 msgstr "Corbeille"
 
 msgid "Tries left:"
 msgstr "Essais annulés:"
+
+msgid "Troubleshoot"
+msgstr "Diagnostiquer"
 
 msgid "Try to find used transponders in cable network.. please wait..."
 msgstr "Recherche des transpondeurs utilisés sur réseau câblé… Veuillez patienter..."
@@ -6985,14 +7208,17 @@ msgstr "Configuration tuner"
 msgid "Tuner is not supported"
 msgstr "Le tuner n'est pas supporté"
 
+msgid "Tuner live values"
+msgstr "Valeurs réelles du tuner"
+
 msgid "Tuner not available."
 msgstr "Tuner non disponible."
 
+msgid "Tuner setting values"
+msgstr "Valeur des paramètres du tuner"
+
 msgid "Tuner slot"
 msgstr "Slot tuner"
-
-msgid "Tuner status"
-msgstr "Etat tuner"
 
 #, python-format
 msgid "Tuner status %s"
@@ -7018,6 +7244,9 @@ msgstr "Type"
 
 msgid "Type of scan"
 msgstr "Type d'analyse"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "URL of fallback remote receiver"
 msgstr ""
@@ -7064,15 +7293,6 @@ msgstr "Clé non prise en charge"
 
 msgid "Unhide parental control services"
 msgstr "Afficher les services avec contrôle parental"
-
-msgid "Unicable"
-msgstr "Unicable"
-
-msgid "Unicable LNB"
-msgstr "Unicable LNB"
-
-msgid "Unicable Matrix"
-msgstr "Matrice Unicable"
 
 msgid "Uninstall"
 msgstr "Désinstaller"
@@ -7142,6 +7362,9 @@ msgstr "Utiliser l'information EIT EPG quand elle est disponible."
 
 msgid "Use FreeSat EPG information when it is available."
 msgstr "Utiliser l'information FreeSat EPG quand elle est disponible."
+
+msgid "Use HDMI pre-emphasis"
+msgstr "Utiliser la pré-accentuation (pre-emphasis) HDMI"
 
 msgid "Use MHW EPG information when it is available."
 msgstr "Utiliser l'information MHW EPG quand elle est disponible."
@@ -7250,6 +7473,9 @@ msgstr "Habituellement, lorsque la langue des sous-titres est la même que la la
 msgid "VCR scart"
 msgstr "Péritel magnétoscope"
 
+msgid "VLAN connection"
+msgstr "Connexion VLAN"
+
 msgid "VMGM (intro trailer)"
 msgstr "VMGM (intro bande-annonce)"
 
@@ -7312,14 +7538,8 @@ msgstr "Vidéo: %s fps"
 msgid "VideoMode"
 msgstr "Mode vidéo"
 
-msgid "Videocodec"
-msgstr "Codec vidéo"
-
-msgid "Videoformat"
-msgstr "Format vidéo"
-
-msgid "Videosize"
-msgstr "Taille vidéo"
+msgid "Videocodec, size & format"
+msgstr "Codec vidéo, taille & format"
 
 msgid "View Rass interactive..."
 msgstr "Afficher Rass interactif..."
@@ -7531,12 +7751,6 @@ msgstr "Que voulez-vous analyser ?"
 
 msgid "When enabled enigma2 will load unlinked userbouquets. This means that userbouquets that are available, but not included in the bouquets.tv or bouquets.radio files, will still be loaded. This allows you for example to keep your own user bouquet while installed settings are upgraded"
 msgstr "Lorsqu'elle est activée, enigma2 chargera les userbouquets non liés. Cela signifie que les userbouquets qui sont disponibles, mais pas repris dans les fichiers bouquets.tv ou bouquets.radio, seront chargés."
-
-msgid "When enabled the LNB power will not be switched off in standby"
-msgstr "Lorsqu'elle est activée l’alimentation des LNBs ne sera pas éteinte en mode veille"
-
-msgid "When enabled the LNB toneburst will be forced"
-msgstr "Lorsqu'elle est activée, le LNB toneburst sera forcé"
 
 msgid "When enabled the PiP can be closed by the exit button."
 msgstr "Lorsqu'elle est activée, le PiP peut être fermé avec le bouton exit."
@@ -7795,6 +8009,15 @@ msgstr "Échec d'écriture!"
 msgid "Write to /tmp/positionersetup.log"
 msgstr "Ecrire dans /tmp/positionersetup.log"
 
+msgid "YCbCr420"
+msgstr "YCbCr420"
+
+msgid "YCbCr422"
+msgstr "YCbCr422"
+
+msgid "YCbCr444"
+msgstr "YCbCr444"
+
 msgid "YES"
 msgstr "OUI"
 
@@ -7845,6 +8068,12 @@ msgstr "Oui, faire une analyse automatique maintenant"
 
 msgid "Yes, do another manual scan now"
 msgstr "Oui, faire une autre analyse manuelle maintenant"
+
+msgid "Yes, only from deep standby"
+msgstr "Oui, seulement depuis la veille profonde"
+
+msgid "Yes, only from standby"
+msgstr "Oui, seulement depuis la veille"
 
 msgid "Yes, perform a shutdown now."
 msgstr "Oui, éteindre maintenant."
@@ -7946,10 +8175,10 @@ msgid "You must switch to the service %s (%s - '%s')!\n"
 msgstr "Vous devez basculer vers le service %s (%s - '%s')!\n"
 
 msgid ""
-"You need a PC connected to your receiver. If you need further instructions, please visit the website http://www.dm7025.de.\n"
+"You need a PC connected to your receiver. If you need further instructions, please visit the website https://openpli.org\n"
 "Your receiver will now be halted. After you have performed the update instructions from the website, your new firmware will ask you to restore your settings."
 msgstr ""
-"Vous avez besoin d'un PC relié à votre récepteur. Si vous avez besoin de plus amples instructions, s'il vous plaît visitez le site Web de http://www.dm7025.de.\n"
+"Vous avez besoin d'un PC relié à votre récepteur. Si vous avez besoin de plus amples instructions, s'il vous plaît visitez le site Web de https://openpli.org\n"
 "Votre récepteur va maintenant être arrêté. Après avoir exécuté les instructions de mise à jour du site web, votre nouveau firmware vous demandera de restaurer vos paramètres."
 
 msgid "You system does not support ext4"
@@ -8730,9 +8959,6 @@ msgstr "Pas supporté"
 
 msgid "not tested"
 msgstr "pas testé"
-
-msgid "not used"
-msgstr "Pas utilisé"
 
 msgid "not_tested"
 msgstr "pas_testé"

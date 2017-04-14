@@ -21,10 +21,10 @@ class PluginComponent:
 		self.prefix = prefix
 
 	def addPlugin(self, plugin):
-		if self.firstRun and not plugin.needsRestart:
+		if self.firstRun or not plugin.needsRestart:
 			self.pluginList.append(plugin)
 			for x in plugin.where:
-				insort(self.plugins.setdefault(x, []), (plugin))
+				insort(self.plugins.setdefault(x, []), plugin)
 				if x == PluginDescriptor.WHERE_AUTOSTART:
 					plugin(reason=0)
 		else:
