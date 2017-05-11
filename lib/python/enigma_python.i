@@ -32,8 +32,6 @@ Oh, things like "operator= is private in this context" etc.
 is usually caused by not marking PSignals as immutable. 
 */
 
-%feature("autodoc", "0");
-
 %module enigma
 %{
 
