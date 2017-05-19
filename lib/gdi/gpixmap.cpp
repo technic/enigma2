@@ -773,8 +773,9 @@ void gPixmap::blit(const gPixmap &src, const eRect &_pos, const gRegion &clip, i
 				dstptr+=surface->stride;
 			}
 		}
-		else
-			eWarning("[gPixmap] cannot blit %dbpp from %dbpp", surface->bpp, src.surface->bpp);
+		else {
+			// eWarning("[gPixmap] cannot blit %dbpp from %dbpp", surface->bpp, src.surface->bpp);
+		}
 #ifdef GPIXMAP_DEBUG
 		s.stop();
 		eDebug("[gPixmap] [BLITBENCH] cpu blit took %u us", s.elapsed_us());
