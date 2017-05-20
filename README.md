@@ -14,17 +14,17 @@ Rendering of video that comes from DVB is not implemented.
 
 Keys remapping
 --------------
-arrows = arrows, numbers = numbers, letters = letters
-page up/down = page up/down
-ok = enter
-menu = space
-exit = ESC
-red = F1
-green = F2
-yellow = F3
-blue = F4
-info = F5
-tv = F6
-video = F7
-audio = F8
-power = F10
+* arrows = arrows, numbers = numbers, letters = letters
+* page up/down = page up/down
+* ok = enter
+* menu = space
+* exit = ESC
+* red = F1
+* green = F2
+* yellow = F3
+* blue = F4
+* info = F5
+* tv = F6
+* video = F7
+* audio = F8
+* power = F10
