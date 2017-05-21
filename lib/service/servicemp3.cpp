@@ -663,14 +663,14 @@ void eServiceMP3::setupAppsink()
 	g_object_set(m_gst_playbin, "video-sink", appsink, NULL);
 	gst_app_sink_set_max_buffers((GstAppSink*)appsink, 1);
 	g_object_set(G_OBJECT(appsink), "emit-signals", TRUE, NULL);
-	g_signal_connect(G_OBJECT(appsink), "new-buffer", G_CALLBACK(displayFrame), this);
+	g_signal_connect(G_OBJECT(appsink), "new-sample", G_CALLBACK(displayFrame), this);
 }
 
 GstFlowReturn eServiceMP3::displayFrame(GstAppSink *appsink, gpointer user_data)
 {
 	// unref in SDL
-	GstBuffer *buf = gst_app_sink_pull_buffer(appsink);
-	if (!buf) {
+	GstSample *sample = gst_app_sink_pull_sample(appsink);
+	if (!sample) {
 		eFatal("[eServiceMP3] appsink got empty buffer");
 		return GST_FLOW_ERROR;
 	}
@@ -680,7 +680,8 @@ GstFlowReturn eServiceMP3::displayFrame(GstAppSink *appsink, gpointer user_data)
 	// FIXME: avoid cast by gMainDC interface change
 	gMainDC *dc_ptr = dc;
 	gSDLDC *ptr = static_cast<gSDLDC*>(dc_ptr);
-	ptr->displayVideoFrame(buf);
+	ptr->displayVideoFrame(sample);
+	return GST_FLOW_OK;
 }
 
 eServiceMP3::~eServiceMP3()

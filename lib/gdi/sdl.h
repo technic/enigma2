@@ -45,7 +45,7 @@ private:
 	SDL_Surface *m_osd;
 	FrameInfo m_frame;
 	eSingleLock m_mutex;
-	GstBuffer *m_buf;
+	GstSample *m_buf;
 
 public:
 	void setResolution(int xres, int yres, int bpp = 32);
@@ -53,7 +53,7 @@ public:
 	virtual ~gSDLDC();
 	int islocked() const { return 0; }
 	/// Passing ownership of buf
-	void displayVideoFrame(GstBuffer *buf);
+	void displayVideoFrame(GstSample *buf);
 
 };
 
