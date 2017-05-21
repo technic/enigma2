@@ -94,12 +94,12 @@ void gSDLDC::setResolution(int xres, int yres, int bpp)
 	pushEvent(EV_SET_VIDEO_MODE, (void *)xres, (void *)yres);
 }
 
-void gSDLDC::displayVideoFrame(GstBuffer *buf)
+void gSDLDC::displayVideoFrame(GstSample *buf)
 {
 	m_mutex.lock();
 	if (m_buf != NULL) {
 		eDebug("[gSDLDC] drop frame");
-		gst_buffer_unref(m_buf);
+		gst_sample_unref(m_buf);
 		m_buf = NULL;
 	}
 	m_buf = buf;
@@ -161,13 +161,13 @@ void gSDLDC::evFlip()
 
 	// Update Video texture;
 	m_mutex.lock();
-	GstBuffer *gst_buf = m_buf;
+	GstSample *gst_buf = m_buf;
 	m_buf = NULL;
 	m_mutex.unlock();
 
 	if (gst_buf) {
 
-		GstCaps* caps = gst_buffer_get_caps(gst_buf);
+		GstCaps* caps = gst_sample_get_caps(gst_buf);
 		if (!caps) {
 			eFatal("could not get snapshot format");
 		}
@@ -194,18 +194,24 @@ void gSDLDC::evFlip()
 		r.w = width;
 		r.h = height;
 
+		GstMapInfo info;
+		GstBuffer *buf = gst_sample_get_buffer(gst_buf);
+		gst_buffer_map(buf, &info, GST_MAP_READ);
+
 		// TODO: get format from caps
 		// I420
 		guint8 *y, *u, *v;
 		int ypitch, upitch, vpitch;
-		y = GST_BUFFER_DATA(gst_buf);
+		y = info.data;
 		u = y + I420_U_OFFSET(width, height);
 		v = y + I420_V_OFFSET(width, height);
 		ypitch = I420_Y_ROWSTRIDE(width);
 		upitch = I420_U_ROWSTRIDE(width);
 		vpitch = I420_V_ROWSTRIDE(width);
 		SDL_UpdateYUVTexture(m_video_tex, &r, y, ypitch, u, upitch, v, vpitch);
-		gst_buffer_unref(gst_buf);
+
+		gst_buffer_unmap(buf, &info);
+		gst_sample_unref(gst_buf);
 	}
 
 	// Render Video
