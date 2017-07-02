@@ -360,7 +360,7 @@ int main(int argc, char **argv)
 //	python.execute("mytest", "__main__");
 
 	if (!py_file.empty()) {
-		for (int i=0; i<py_argv.size(); i++) {
+		for (size_t i=0; i<py_argv.size(); i++) {
 			eDebug("[Python] argv[%d] %s", i, py_argv[i]);
 		}
 		PySys_SetArgv(py_argv.size(), py_argv.data());
