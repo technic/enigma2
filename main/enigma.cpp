@@ -5,6 +5,7 @@
 #include <sys/ioctl.h>
 #include <libsig_comp.h>
 #include <linux/dvb/version.h>
+#include <getopt.h>
 
 #include <lib/actions/action.h>
 #include <lib/driver/rc.h>
@@ -187,6 +188,63 @@ int main(int argc, char **argv)
 	atexit(object_dump);
 #endif
 
+	FILE *f = fopen("/tmp/enigma2_args.log", "w");
+	if (f) {
+		for (int i = 0; i < argc; ++i) {
+			fprintf(f, "argv[%d] %s\n", i, argv[i]);
+		}
+		fclose(f);
+	}
+
+	// Try to behave more like python interpreter does
+
+	std::string py_command;
+	std::string py_file;
+
+	while(true) {
+		// I need + to do it POSIXLY_CORRECT
+		// that is stop looking for options after first non-opt argument
+		int opt = getopt(argc, argv, "+c:");
+		switch (opt) {
+		case 'c':
+			py_command = std::string(optarg);
+			break;
+		case '?':
+			// special python option, not implemented
+			continue;
+		case -1:
+			// end of arguments
+			if (optind < argc) {
+				py_file = std::string(argv[optind]);
+			}
+			break;
+		}
+		break;
+	}
+
+	// in the outer scope, don't free before program exit
+	std::vector<char*> py_argv;
+	if (!py_command.empty()) {
+		py_argv.push_back(strdup("-c"));
+	}
+	if (!py_command.empty() || !py_file.empty()) {
+		// pass remaining arguments to script
+		for (int i = optind; i < argc; ++i) {
+			py_argv.push_back(argv[i]);
+		}
+	}
+
+	// if inline python command just execute it and exit
+	if (!py_command.empty()) {
+		Py_Initialize();
+		PySys_SetArgv(py_argv.size(), py_argv.data());
+		PyRun_SimpleString(py_command.c_str());
+		Py_Finalize();
+		return 0;
+	}
+
+	// normal enigma2 start
+
 	gst_init(&argc, &argv);
 
 	// set pythonpath if unset
@@ -291,7 +349,17 @@ int main(int argc, char **argv)
 	eVideoWidget::setFullsize(true);
 
 //	python.execute("mytest", "__main__");
-	python.execFile(eEnv::resolve("${libdir}/enigma2/python/mytest.py").c_str());
+
+	if (!py_file.empty()) {
+		for (size_t i=0; i<py_argv.size(); i++) {
+			eDebug("[Python] argv[%d] %s", i, py_argv[i]);
+		}
+		PySys_SetArgv(py_argv.size(), py_argv.data());
+		python.execFile(py_file.c_str());
+	} else {
+		eDebug("[Python] run default");
+		python.execFile(eEnv::resolve("${libdir}/enigma2/python/mytest.py").c_str());
+	}
 
 	/* restore both decoders to full size */
 	eVideoWidget::setFullsize(true);
