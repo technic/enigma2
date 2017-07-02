@@ -247,8 +247,8 @@ int main(int argc, char **argv)
 
 	gst_init(&argc, &argv);
 
-	// set pythonpath
-	setenv("PYTHONPATH", eEnv::resolve("${libdir}/enigma2/python").c_str(), 1);
+	// set pythonpath if unset
+	setenv("PYTHONPATH", eEnv::resolve("${libdir}/enigma2/python").c_str(), 0);
 	printf("PYTHONPATH: %s\n", getenv("PYTHONPATH"));
 	printf("DVB_API_VERSION %d DVB_API_VERSION_MINOR %d\n", DVB_API_VERSION, DVB_API_VERSION_MINOR);
 
