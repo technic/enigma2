@@ -307,8 +307,8 @@ RESULT eDVBScan::startFilter()
 				{
 					eDVBFrontendParametersCable parm;
 					m_ch_current->getDVBC(parm);
-					if ((tsid == 0x00d7 && abs(parm.frequency-618000) < 2000) ||
-						(tsid == 0x00d8 && abs(parm.frequency-626000) < 2000))
+					if ((tsid == 0x00d7 && abs(static_cast<int>(parm.frequency)-618000) < 2000) ||
+						(tsid == 0x00d8 && abs(static_cast<int>(parm.frequency)-626000) < 2000))
 						tsid = -1;
 				}
 			}
