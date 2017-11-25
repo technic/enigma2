@@ -77,9 +77,9 @@ class Wlan:
 
 		try:
 			scanresults = ifobj.scan()
-		except:
+		except Exception as error:
 			scanresults = None
-			print "[Wlan.py] No wireless networks could be found"
+			print "[Wlan.py] No wireless networks could be found", error
 		aps = {}
 		if scanresults is not None:
 			(num_channels, frequencies) = ifobj.getChannelInfo()
