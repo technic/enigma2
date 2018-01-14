@@ -336,6 +336,7 @@ po/Makefile
 main/Makefile
 tools/Makefile
 tools/enigma2.sh
+twisted/plugins/Makefile
 enigma2.pc
 ])
 AC_OUTPUT
