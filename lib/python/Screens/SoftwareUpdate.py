@@ -68,6 +68,11 @@ class UpdatePlugin(Screen, ProtectedScreen):
 		self.activityTimer.callback.append(self.doActivityTimer)
 		self.activityTimer.start(100, True)
 
+		# disable the disclaimer, we're in stable release land now
+		config.usage.show_update_disclaimer.value = False
+		config.usage.show_update_disclaimer.save()
+
+
 	def isProtected(self):
 		return config.ParentalControl.setuppinactive.value and\
 			(not config.ParentalControl.config_sections.main_menu.value and not config.ParentalControl.config_sections.configuration.value  or hasattr(self.session, 'infobar') and self.session.infobar is None) and\
@@ -85,7 +90,7 @@ class UpdatePlugin(Screen, ProtectedScreen):
 		try:
 			# TODO: Use Twisted's URL fetcher, urlopen is evil. And it can
 			# run in parallel to the package update.
-			url = "http://openpli.org/status/"
+			url = "https://openpli.org/status/"
 			try:
 				status = urlopen(url, timeout=5).read().split('!', 1)
 			except:
@@ -94,7 +99,11 @@ class UpdatePlugin(Screen, ProtectedScreen):
 				status = urlopen(url, timeout=5, context=_create_unverified_context()).read().split('!', 1)
 				print status
 			if getBoxType() in status[0].split(','):
-				message = len(status) > 1 and status[1] or _("The current beta image might not be stable.\nFor more information see %s.") % ("www.openpli.org")
+				message = len(status) > 1 and status[1] or _("The current image might not be stable.\nFor more information see %s.") % ("www.openpli.org")
+				# strip any HTML that may be in the message, but retain line breaks
+				import re
+				message = message.replace("<br />", "\n\n").replace("<br>", "\n\n")
+				message = re.sub('<[^<]+?>', '', re.sub('&#8209;', '-', message))
 				picon = MessageBox.TYPE_ERROR
 				default = False
 		except:
@@ -135,7 +144,7 @@ class UpdatePlugin(Screen, ProtectedScreen):
 			from datetime import datetime
 			imageVersion = about.getImageTypeString().split(" ")[1]
 			imageVersion = (int(imageVersion) < 5 and "%.1f" or "%s") % int(imageVersion)
-			url = "http://openpli.org/download/timestamp/%s~%s" % (HardwareInfo().get_device_model(), imageVersion)
+			url = "https://openpli.org/download/timestamp/%s~%s" % (HardwareInfo().get_device_model(), imageVersion)
 			try:
 				latestImageTimestamp = datetime.fromtimestamp(int(urlopen(url, timeout=5).read())).strftime(_("%Y-%m-%d %H:%M"))
 			except:
