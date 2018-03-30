@@ -10,6 +10,9 @@ profile("LOAD:eRCInput")
 from enigma import eRCInput
 
 class Screen(dict, GUISkin):
+	"""
+	:type session: mytest.Session
+	"""
 
 	False, SUSPEND_STOPS, SUSPEND_PAUSES = range(3)
 	ALLOW_SUSPEND = False
