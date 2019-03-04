@@ -114,7 +114,7 @@ void gSDLDC::displayVideoFrame(GstSample *buf)
 
 void gSDLDC::evSetVideoMode(unsigned long xres, unsigned long yres)
 {
-	m_window = SDL_CreateWindow("enigma2-SDL2", 0, 0, 1280, 720, SDL_WINDOW_RESIZABLE);
+	m_window = SDL_CreateWindow("enigma2-SDL2", 0, 0, xres, yres, SDL_WINDOW_RESIZABLE);
 	if (!m_window) {
 		eFatal("[gSDLDC] Could not create SDL window: %s", SDL_GetError());
 		return;
