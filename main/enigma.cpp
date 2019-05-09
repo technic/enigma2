@@ -253,8 +253,6 @@ int main(int argc, char **argv)
 
 	// normal enigma2 start
 
-	gst_init(&argc, &argv);
-
 	// set pythonpath if unset
 	setenv("PYTHONPATH", eEnv::resolve("${libdir}/enigma2/python").c_str(), 0);
 	printf("PYTHONPATH: %s\n", getenv("PYTHONPATH"));
