@@ -34,6 +34,7 @@ stamp-h1
 *.tar.bz2
 *.tar.gz
 aclocal-copy
+COPYING
 compile
 .dirstamp
 mipsel-oe-linux-libtool
