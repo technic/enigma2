@@ -36,6 +36,7 @@ gdiinclude_HEADERS = \
 	gdi/font.h \
 	gdi/gfont.h \
 	gdi/glcddc.h \
+	gdi/gmaindc.h \
 	gdi/gpixmap.h \
 	gdi/grc.h \
 	gdi/lcd.h \
