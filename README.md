@@ -1,6 +1,8 @@
 enigma2
 -------
 
+[![Build Status](https://travis-ci.org/technic/enigma2.svg?branch=master)](https://travis-ci.org/technic/enigma2)
+
 enigma2 is a gui frontend for linux powered set-top-boxes. 
 This fork is for running enigma2 on a regular linux pc, that may be usefull for plugin developers.
 
