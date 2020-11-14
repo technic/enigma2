@@ -48,6 +48,8 @@ if HAVE_LIBSDL
 gdi_libenigma_gdi_a_SOURCES += \
 	gdi/sdl.cpp \
 	gdi/sdl.h
+gdiinclude_HEADERS += \
+	gdi/sdl.h
 else
 gdi_libenigma_gdi_a_SOURCES += \
 	gdi/gfbdc.cpp \
